@@ -1,0 +1,51 @@
+body{
+    background-color: dimgrey;
+    color: azure;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+#wrapper{
+    display: grid;
+    height: 50vw;
+    grid-template-columns: 20% 80%;
+}
+
+#left_menu{
+    border: solid;
+    border-color: rgb(97, 97, 97);
+    padding: 10%;
+    text-align: center;
+    background-color: gray;
+}
+
+img{
+    width: 100%;
+    height: auto;
+    border-color: rgb(97, 97, 97);
+    border-style: solid;
+    border-radius: 50%;
+}
+
+button{
+    color: azure;
+    font-size: larger;
+    width: 10vw;
+    height: 3vw;
+    background-color: gray;
+    border-color: dimgray;
+}
+
+#content{
+    padding: 1%;
+}
+
+iframe{
+    width: 23.7%;
+    height: 25%;
+    margin: 0.5%;
+    margin-bottom: 3%;
+    border-radius: 5%;
+}
