@@ -94,9 +94,9 @@ def save_channel(channel):
     if not channel_is_saved(channel):
         with open('channels_list.txt', "a") as channels_list_doc:
             channels_list_doc.write(channel + '\n')
-        return f'{channel} foi adicionado com sucesso!'
+        return f'{channel.split('/')[3]} foi adicionado com sucesso!'
     else:
-        return f'{channel} já consta na lista de canais!'
+        return f'{channel.split('/')[3]} já consta na lista de canais!'
 
 
 #This function returns those channels in the channel_list.txt
@@ -116,6 +116,6 @@ def dele_channel(channel):
             for ch in channel_list:
                 if ch != channel:
                     channel_list_doc.write(ch + '\n')
-        return f'{channel} foi removido com sucesso!'
+        return f'{channel.split('/')[3]} foi removido com sucesso!'
     else:
-        return f'{channel} não está na lista!'
+        return f'{channel.split('/')[3]} não está na lista!'

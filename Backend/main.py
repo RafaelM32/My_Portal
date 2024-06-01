@@ -22,8 +22,7 @@ def iframes():
     requisicao = request.json
     resposta = {'ok': True, 'iframes_list': []}
 
-    if not is_more_the_x_minutes(10):
-        resposta['ok'] = False
+    if not is_more_the_x_minutes(10) and not requisicao['refresh']:
         resposta['videos_list'] = load_videos_list()
         return make_response(json.jsonify(resposta))
     
