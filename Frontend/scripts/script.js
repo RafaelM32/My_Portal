@@ -4,12 +4,16 @@ var remove_button = document.getElementById("REMOVE")
 var refresh_button = document.getElementById("REFRESH")
 var text_element = document.getElementById("message")
 var input_element = document.getElementById('channel')
+var h1_video_qtd = document.getElementById('qtd')
+var less_than_button = document.getElementById('less_video')
+var gr_than_button = document.getElementById('more_video')
+
 
 
 
 //Use to load the data from api with videos contents
 //when the calls succeeds, it calls the fuction that places the iframes inside the div content
-function load_iframes(rfr=false){    
+function load_iframes(rfr=false, quantidade = 2){    
     if (rfr){
         clear_div()
     }
@@ -17,7 +21,7 @@ function load_iframes(rfr=false){
     $.ajax({
         type: 'POST',
         url: url,
-        data: JSON.stringify({refresh:rfr,videos_quantity_peer_channel: 2}),
+        data: JSON.stringify({refresh:rfr,videos_quantity_peer_channel: quantidade}),
         contentType: "application/json",
         success: function(data){load_iframes_in_site(data['videos_list'])},
         dataType:'json'
@@ -99,11 +103,32 @@ function show_response(response){
     text_element.innerText = response
 }
 
+function get_video_qtd(){
+    return parseInt(h1_video_qtd.innerText)
+}
+
+function grower_video_qtd(){
+    let actual = get_video_qtd()
+    if(actual < 30){
+        h1_video_qtd.innerText = actual + 1
+    }
+}
+
+function lower_video_qtd(){
+    let actual = get_video_qtd()
+    if(actual > 0){
+        h1_video_qtd.innerText = actual - 1
+
+    }
+}
+
 //At the end of the code i just run the buttons event to triger the functions
 remove_button.addEventListener('click', delete_channel)
 add_button.addEventListener('click', add_channel)
-refresh_button.addEventListener('click', function(){load_iframes(true)})
+refresh_button.addEventListener('click', function(){load_iframes(rfr=true,get_video_qtd())})
+less_than_button.addEventListener('click', lower_video_qtd)
+gr_than_button.addEventListener('click',grower_video_qtd )
 
 
 //Here is just to call the function when i load the page
-load_iframes()
+load_iframes(quantidade=get_video_qtd())
