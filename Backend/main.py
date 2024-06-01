@@ -24,11 +24,34 @@ def iframes():
 
     if not is_more_the_x_minutes(10):
         resposta['ok'] = False
-        resposta['iframes_list'] = list_of_iframe_videos()
+        resposta['videos_list'] = load_videos_list()
         return make_response(json.jsonify(resposta))
     
     else:
-        make_the_video_list_file(requisicao['channels'],requisicao['videos_quantity_peer_channel'])
-        resposta['iframes_list'] = list_of_iframe_videos()
-        save_time()
+        make_the_video_list_file(requisicao['videos_quantity_peer_channel'])
+        resposta['videos_list'] = load_videos_list()
         return make_response(json.jsonify(resposta))
+
+
+
+#In this route i can modify the list of channels that i want to load
+#I can get the list or add a new channel or even delete some one
+@app.route('/channel_list', methods= ['GET', 'POST','DELETE'])
+def channel_list():
+
+    if request.method == 'POST':
+        requisicao = request.json
+        resposta = {'ok': True, 'status': save_channel(requisicao['channel'])}
+        return make_response(json.jsonify(resposta))
+    
+
+    elif request.method =='DELETE':
+        requisicao = request.json
+        resposta = {'ok': True, 'status': dele_channel(requisicao['channel'])}
+        return make_response(json.jsonify(resposta))
+    
+
+    elif request.method == 'GET':
+        resposta = {'ok': True, 'chanels_list': load_channels_list()}
+        return make_response(json.jsonify(resposta))
+
