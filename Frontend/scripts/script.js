@@ -7,8 +7,7 @@ var input_element = document.getElementById('channel')
 var h1_video_qtd = document.getElementById('qtd')
 var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
-
-
+var url_ = "https://my-portal-p68afqfh5-rafaelm32s-projects.vercel.app"
 
 
 //Use to load the data from api with videos contents
@@ -17,7 +16,7 @@ function load_iframes(rfr=false, quantidade = 2){
     if (rfr){
         clear_div()
     }
-    const url = 'http://127.0.0.1:5000/iframes'
+    const url = `${url_}/iframes` 
     $.ajax({
         type: 'POST',
         url: url,
@@ -30,7 +29,7 @@ function load_iframes(rfr=false, quantidade = 2){
 
 //Use to save new channels to search for videos
 function add_channel(){
-    const url = 'http://127.0.0.1:5000/channel_list'
+    const url = `${url_}/channel_list` 
     const channel = input_element.value
     $.ajax({
         type: 'POST',
@@ -45,7 +44,7 @@ function add_channel(){
 
 //Use to delete channels in Database
 function delete_channel(){
-    const url = 'http://127.0.0.1:5000/channel_list'
+    const url = `${url_}/channel_list` 
     const channel = input_element.value
     $.ajax({
         type: 'DELETE',
@@ -60,7 +59,7 @@ function delete_channel(){
 
 //Use to get all chennels in Database
 function get_channels_list(){
-    const url = 'http://127.0.0.1:5000/channel_list'
+    const url = `${url_}/channel_list` 
     $.get(url, function(data){console.log(data)})
 }
 

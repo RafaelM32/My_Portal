@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app, origins=['null'])
+CORS(app)
 
 @app.route("/")
 def aplication_status():
