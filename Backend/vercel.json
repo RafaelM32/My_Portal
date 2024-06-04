@@ -6,9 +6,9 @@
     "routes":[
         {"src": "/(.*)",
         "dest":"main.py",        
-        "headers": {
-            "Access-Control-Allow-Origin":"*"
-        }
-        }
+        "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    }
+        
+
     ]
 }
