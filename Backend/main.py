@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['null'])
 
 @app.route("/")
 def aplication_status():
@@ -54,3 +54,6 @@ def channel_list():
         resposta = {'ok': True, 'chanels_list': load_channels_list()}
         return make_response(json.jsonify(resposta))
 
+
+if __name__ == '__main__':
+    app.run(debug=True)
