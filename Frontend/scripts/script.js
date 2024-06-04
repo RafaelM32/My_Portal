@@ -7,7 +7,7 @@ var input_element = document.getElementById('channel')
 var h1_video_qtd = document.getElementById('qtd')
 var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
-var url_ = "http://www.my-portal-5n9kvdh59-rafaelm32s-projects.vercel.app"
+var url_ = "http://my-portal-5n9kvdh59-rafaelm32s-projects.vercel.app"
 
 
 //Use to load the data from api with videos contents
