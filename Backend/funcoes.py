@@ -9,7 +9,7 @@ lista_de_urls = ["https://www.youtube.com/@rbiana/videos","https://www.youtube.c
 #This function just save the html data from the new videos page from the channels
 #So in order to it work the url HAS TO BE FROM THE VIDEO PAGE of the channel
 def save_page(url):
-    urllib.request.urlretrieve(url, "html_page.html")
+    urllib.request.urlretrieve(url, "./tmp/html_page.html")
 
 
 #This function extracts the url from the videos in the page
@@ -29,7 +29,7 @@ def list_of_videos(file):
 def make_the_video_list_file(video_quantity = 2):
     lista_de_urls = load_channels_list()
     if video_quantity <= 30 and video_quantity > 0:
-        open("videos_list.txt","w").close() #Just to clean the file
+        open("./tmp/videos_list.txt","w").close() #Just to clean the file
         for url in lista_de_urls:
             save_page(url)
             with open("videos_list.txt","a") as document:
@@ -43,7 +43,7 @@ def make_the_video_list_file(video_quantity = 2):
 #Make the update from the videos
 def save_time():
     now = datetime.now()
-    with open("time.txt","w") as time_document:
+    with open("./tmp/time.txt","w") as time_document:
         time_document.write(str(now.year)+ "\n")
         time_document.write(str(now.month)+ "\n")
         time_document.write(str(now.day)+ "\n")
@@ -53,7 +53,7 @@ def save_time():
 #This function load the last time saved on the time.txt file and converts it to a list(Y,M,D,H,m)
 def load_last_timelist():
     lista = []
-    with open("time.txt") as time_document:
+    with open("./tmp/time.txt") as time_document:
         for line in time_document:
             lista.append(int(line))
     return lista
@@ -73,7 +73,7 @@ def is_more_the_x_minutes(x):
 #This function is to load the link of videos saved on videos_list.txt file
 def load_videos_list():
     videos_list = []
-    with open("videos_list.txt", "r") as videos_document:
+    with open("./tmp/videos_list.txt", "r") as videos_document:
         for video in videos_document:
             if video != "": #To dont load the last empit line
                 videos_list.append(video.strip())
@@ -83,7 +83,7 @@ def load_videos_list():
 
 #This function cheks is a chennel alrely is in the chennels list
 def channel_is_saved(channel):
-    with open('channels_list.txt', 'r') as channels_list_doc:
+    with open('./tmp/channels_list.txt', 'r') as channels_list_doc:
         for ch in channels_list_doc:
             if channel == ch.strip():
                 return True
@@ -92,7 +92,7 @@ def channel_is_saved(channel):
 #This function saves a new chennel in the list
 def save_channel(channel):
     if not channel_is_saved(channel):
-        with open('channels_list.txt', "a") as channels_list_doc:
+        with open('./tmp/channels_list.txt', "a") as channels_list_doc:
             channels_list_doc.write(channel + '\n')
         return f'{channel.split('/')[3]} foi adicionado com sucesso!'
     else:
@@ -102,7 +102,7 @@ def save_channel(channel):
 #This function returns those channels in the channel_list.txt
 def load_channels_list():
     channel_list = []
-    with open('channels_list.txt', 'r') as channels_list_doc:
+    with open('./tmp/channels_list.txt', 'r') as channels_list_doc:
         for channel in channels_list_doc:
             if channel != '':
                 channel_list.append(channel.strip())
@@ -112,7 +112,7 @@ def load_channels_list():
 def dele_channel(channel):
     if channel_is_saved(channel):
         channel_list = load_channels_list()
-        with open('channels_list.txt', 'w') as channel_list_doc:
+        with open('./tmp/channels_list.txt', 'w') as channel_list_doc:
             for ch in channel_list:
                 if ch != channel:
                     channel_list_doc.write(ch + '\n')
