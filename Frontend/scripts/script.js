@@ -7,7 +7,7 @@ var input_element = document.getElementById('channel')
 var h1_video_qtd = document.getElementById('qtd')
 var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
-var url_ = "https://my-portal-bice.vercel.app"
+var url_ = "http://127.0.0.1:5000"
 
 
 //Use to load the data from api with videos contents
@@ -22,7 +22,7 @@ function load_iframes(rfr=false, quantidade = 2){
         url: url,
         data: JSON.stringify({refresh:rfr,videos_quantity_peer_channel: quantidade}),
         contentType: "application/json",
-        success: function(data){load_iframes_in_site(data['videos_list'])},
+        success: function(data){load_iframes_in_site(data['videos_list']); console.log(data)},
         dataType:'json'
     })
 }
@@ -67,7 +67,7 @@ function get_channels_list(){
 //This function creats a iframe object that can be set inside the div
 function make_iframe_object(video){
     const iframe = document.createElement('iframe')
-    iframe.src = video
+    iframe.src = `https://www.youtube.com/embed/${video}`
     iframe.title = "YouTube video player"
     iframe.frameBorder = "0"
     iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -124,10 +124,10 @@ function lower_video_qtd(){
 //At the end of the code i just run the buttons event to triger the functions
 remove_button.addEventListener('click', delete_channel)
 add_button.addEventListener('click', add_channel)
-refresh_button.addEventListener('click', function(){load_iframes(rfr=true,get_video_qtd())})
+refresh_button.addEventListener('click', function(){load_iframes(rfr=true,quantidade=get_video_qtd())})
 less_than_button.addEventListener('click', lower_video_qtd)
 gr_than_button.addEventListener('click',grower_video_qtd )
 
 
 //Here is just to call the function when i load the page
-load_iframes(quantidade=get_video_qtd())
+load_iframes(rfr=false,quantidade=get_video_qtd())

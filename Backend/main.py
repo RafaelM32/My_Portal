@@ -23,12 +23,12 @@ def iframes():
     resposta = {'ok': True, 'iframes_list': []}
 
     if not is_more_the_x_minutes(10) and not requisicao['refresh']:
-        resposta['videos_list'] = load_videos_list()
+        resposta['videos_list'] = send_videos_list()
         return make_response(json.jsonify(resposta))
     
     else:
-        make_the_video_list_file(requisicao['videos_quantity_peer_channel'])
-        resposta['videos_list'] = load_videos_list()
+        upload_videos_list()
+        resposta['videos_list'] = send_videos_list()
         return make_response(json.jsonify(resposta))
 
 
