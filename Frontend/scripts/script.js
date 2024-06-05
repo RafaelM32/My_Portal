@@ -7,7 +7,7 @@ var input_element = document.getElementById('channel')
 var h1_video_qtd = document.getElementById('qtd')
 var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
-var url_ = "http://my-portal-bice.vercel.app"
+var url_ = "https://my-portal-bice.vercel.app"
 
 
 //Use to load the data from api with videos contents
@@ -22,7 +22,7 @@ function load_iframes(rfr=false, quantidade = 2){
         url: url,
         data: JSON.stringify({refresh:rfr,videos_quantity_peer_channel: quantidade}),
         contentType: "application/json",
-        success: function(data){load_iframes_in_site(data['videos_list']); console.log(data)},
+        success: function(data){load_iframes_in_site(data['videos_list'])},
         dataType:'json'
     })
 }
@@ -101,11 +101,13 @@ function clear_div(){
 function show_response(response){
     text_element.innerText = response
 }
-
+//This function returns the quantity of videos peer channel
 function get_video_qtd(){
     return parseInt(h1_video_qtd.innerText)
 }
 
+
+//This function changes the quantity of videos peer channel
 function grower_video_qtd(){
     let actual = get_video_qtd()
     if(actual < 30){
@@ -113,6 +115,7 @@ function grower_video_qtd(){
     }
 }
 
+//This function changes the quantity of videos peer channel
 function lower_video_qtd(){
     let actual = get_video_qtd()
     if(actual > 0){
