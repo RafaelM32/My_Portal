@@ -20,6 +20,7 @@ def aplication_status():
 def iframes():
 
     requisicao = request.json
+    print(f'O cabeçálho da requisição é {request.headers}')
     resposta = {'ok': True, 'iframes_list': []}
 
     
