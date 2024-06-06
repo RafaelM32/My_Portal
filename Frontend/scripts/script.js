@@ -22,7 +22,7 @@ function load_iframes(rfr=false, quantidade = 2){
         url: url,
         data: JSON.stringify({refresh:rfr,videos_quantity_peer_channel: quantidade}),
         contentType: "application/json",
-        success: function(data){load_iframes_in_site(data['videos_list'])},
+        success: function(data){load_iframes_in_site(data['videos_list']); console.log(data['cabecalho'])},
         dataType:'json'
     })
 }
