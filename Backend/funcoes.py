@@ -1,7 +1,18 @@
 import urllib.request
 from datetime import datetime
 
-lista_de_canais = ["https://www.youtube.com/@rbiana/videos","https://www.youtube.com/@Mamaefalei/videos"]
+
+#This 3 variables will goin to be replaced by a call to a BD
+lista_de_canais = ["https://www.youtube.com/@Mamaefalei/videos","https://www.youtube.com/@NandoMouraOficial/videos",
+                   "https://www.youtube.com/@rbiana/videos","https://www.youtube.com/@manodeyvin/videos",
+                   "https://www.youtube.com/@CortesdoCasimitoOFICIAL/videos","https://www.youtube.com/@CortesdoPirullaOficial/videos",
+                   "https://www.youtube.com/@izzynobre/videos","https://www.youtube.com/@leoeisa/videos",
+                   "https://www.youtube.com/@LucasMontano/videos","https://www.youtube.com/@cortes-leonenilceoficial4101/videos",
+                   "https://www.youtube.com/@CortesCienciaSemFim/videos","https://www.youtube.com/@republicacoisadenerd/videos",
+                   "https://www.youtube.com/@tinocandotv/videos","https://www.youtube.com/@Pirulla25/videos",
+                   "https://www.youtube.com/@BakaGaijinn/videos","https://www.youtube.com/@AllandosPanos/videos",
+                   "https://www.youtube.com/@maromberu/videos","https://www.youtube.com/@MaiconKusterNews/videos",
+                   "https://www.youtube.com/@MxRPlays/videos","https://www.youtube.com/@luideverso/videos"]
 lista_de_videos_em_cada_canal =[]
 last_time = [2024,6,5,7,3]
 
@@ -66,6 +77,8 @@ def dele_channel(channel):
     else:
         return f'{channel.split('/')[3]} não está na lista!'
 
+
+#This function makes de reload of the videos in channels
 def upload_videos_list():
     lista_de_videos_em_cada_canal.clear()
     for canal in lista_de_canais:
@@ -73,6 +86,8 @@ def upload_videos_list():
         lista_de_videos_em_cada_canal.append(videos_no_canal)
     save_time()
 
+
+#This function is to send the videos to Frontend
 def send_videos_list(qtd=2):
     lista = []
     for videos in lista_de_videos_em_cada_canal:
