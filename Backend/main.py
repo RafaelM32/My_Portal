@@ -20,7 +20,7 @@ def aplication_status():
 def iframes():
 
     requisicao = request.json
-    resposta = {'ok': True, 'iframes_list': [], 'cabecalho': str(request.headers)}
+    resposta = {'ok': True, 'iframes_list': []}
 
     
     if not is_more_the_x_minutes(10) and not requisicao['refresh']: #If did not pass 10 minutes and you dont use the refresh button 
