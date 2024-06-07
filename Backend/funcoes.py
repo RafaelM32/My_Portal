@@ -27,7 +27,8 @@ def list_of_videos(url):
     page = html_from_url(url)
     page = page.split("watch?v=")[1:]
     for video in page:
-        lista.append(video[:11])
+        if len(video) > 6000:
+            lista.append(video[:11])
     return lista
 
 #This function save the actual time. It is to be used to mark the last time the server 
@@ -94,3 +95,4 @@ def send_videos_list(qtd=2):
         for i in range(qtd):
             lista.append(videos[i])
     return lista
+
