@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app, origins=['teste'])
+CORS(app)
 
 @app.route("/")
 def aplication_status():
@@ -24,15 +24,19 @@ def iframes():
 
     
     if not is_more_the_x_minutes(10) and not requisicao['refresh'] and not requisicao['change_videos_qtd']: #If did not pass 10 minutes and you dont use the refresh button 
-        resposta['videos_list'] = send_videos_list()['videos']                                              #the api will onli retunr the videos list. Instead of reload the list
-        resposta['videos_qtd']  = send_videos_list()['videos_qtd']               
+        r = send_videos_list()
+        resposta['videos_list'] = r['videos']
+        resposta['videos_qtd']  = r['videos_qtd']
+        resposta['tumb_list']   = r['tumbs']
         return make_response(json.jsonify(resposta))
     
     else:
         update_videos_qtd(requisicao['videos_quantity_peer_channel'])
         update_videos_list()
-        resposta['videos_list'] = send_videos_list()['videos']
-        resposta['videos_qtd']  = send_videos_list()['videos_qtd']
+        r = send_videos_list()
+        resposta['videos_list'] = r['videos']
+        resposta['videos_qtd']  = r['videos_qtd']
+        resposta['tumb_list']   = r['tumbs']
         return make_response(json.jsonify(resposta))
 
 

@@ -8,7 +8,7 @@ var h1_video_qtd = document.getElementById('qtd')
 var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
 var start_qtd_value = 0
-var url_ = "https://my-portal-bice.vercel.app"
+var url_ = "http://127.0.0.1:5000"
 
 
 //Use to load the data from api with videos contents
@@ -23,7 +23,7 @@ function load_iframes(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), 
         url: url,
         data: JSON.stringify({refresh: rfr, videos_quantity_peer_channel: quantidade, change_videos_qtd: change_qtd}),
         contentType: "application/json",
-        success: function(data){load_iframes_in_site(data['videos_list'].reverse()); h1_video_qtd.innerText = data['videos_qtd']; start_qtd_value = data['videos_qtd']},
+        success: function(data){load_iframes_in_site(data['videos_list']); h1_video_qtd.innerText = data['videos_qtd']; start_qtd_value = data['videos_qtd']},
         dataType:'json'
     })
 }

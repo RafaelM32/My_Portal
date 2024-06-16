@@ -50,14 +50,19 @@ def load_channels():
 
 def make_videos_list():
     delete_video_list()
-    lista = []
+    lista_v = []
+    lista_t = []
     qtd = load_video_list()['videos_qtd']
     for canal in load_channels():
         l =  canal['video_list']
+        t = canal['tumb_list']
         for i in range(qtd):
-            lista.append(l[i])
-    update = {'$set': {'videos': lista}}
-    videos_list.update_one({'_id': ObjectId('666a42d5bae506d59146744f')}, update)
+            lista_v.append(l[i])
+            lista_t.append(t[i])
+    update_v = {'$set': {'videos': lista_v}}
+    update_t = {'$set': {'tumbs': lista_t}}
+    videos_list.update_one({'_id': ObjectId('666a42d5bae506d59146744f')}, update_v)
+    videos_list.update_one({'_id': ObjectId('666a42d5bae506d59146744f')}, update_t)
     save_time_in_data_base()
 
 def load_video_list():
@@ -78,6 +83,12 @@ def update_videos_qtd(qtd:int):
         videos_list.update_one({'_id': ObjectId('666a42d5bae506d59146744f')}, update)
     else: 
         return "qtd has to be a int number between 0 and 30"
+
+def update_channel_tumb_list(channel, tumblist):
+    update = {'$set': {'tumb_list': tumblist}}
+    channel_to_update = {'channel_url': channel}
+    channels_collection.update_one(channel_to_update,update)
+
 
 
 
