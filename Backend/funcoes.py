@@ -55,13 +55,13 @@ def delete_channel(channel):
 
 
 #This function makes de reload of the videos in channels
-def update_videos_list(qtd=2):
+def update_videos_list():
     for canal in load_channels_list_in_database():
         lista_de_videos_no_canal = list_of_videos(canal)
         update_channel_videos_list(canal,lista_de_videos_no_canal)
-    make_videos_list(qtd)
+    make_videos_list()
 
 
 #This function is to send the videos to Frontend
 def send_videos_list():
-    return load_video_list()['videos']
+    return load_video_list()

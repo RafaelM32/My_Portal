@@ -23,13 +23,16 @@ def iframes():
     resposta = {'ok': True, 'iframes_list': []}
 
     
-    if not is_more_the_x_minutes(10) and not requisicao['refresh']: #If did not pass 10 minutes and you dont use the refresh button 
-        resposta['videos_list'] = send_videos_list()                #the api will onli retunr the videos list. Instead of reload the list
+    if not is_more_the_x_minutes(10) and not requisicao['refresh'] and not requisicao['change_videos_qtd']: #If did not pass 10 minutes and you dont use the refresh button 
+        resposta['videos_list'] = send_videos_list()['videos']                                              #the api will onli retunr the videos list. Instead of reload the list
+        resposta['videos_qtd']  = send_videos_list()['videos_qtd']               
         return make_response(json.jsonify(resposta))
     
     else:
-        update_videos_list(requisicao['videos_quantity_peer_channel'])
-        resposta['videos_list'] = send_videos_list()
+        update_videos_qtd(requisicao['videos_quantity_peer_channel'])
+        update_videos_list()
+        resposta['videos_list'] = send_videos_list()['videos']
+        resposta['videos_qtd']  = send_videos_list()['videos_qtd']
         return make_response(json.jsonify(resposta))
 
 

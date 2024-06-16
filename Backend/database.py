@@ -48,9 +48,10 @@ def load_channels():
     for canal in result:
         yield canal
 
-def make_videos_list(qtd=2):
+def make_videos_list():
     delete_video_list()
     lista = []
+    qtd = load_video_list()['videos_qtd']
     for canal in load_channels():
         l =  canal['video_list']
         for i in range(qtd):
@@ -70,3 +71,14 @@ def delete_video_list():
 def save_time_in_data_base():
     update = {'$set': {'time': datetime.now()}}
     videos_list.update_one({'_id': ObjectId('666a42d5bae506d59146744f')}, update)
+
+def update_videos_qtd(qtd:int):
+    if qtd < 31 and qtd > -1:
+        update = {'$set': {'videos_qtd' : qtd}}
+        videos_list.update_one({'_id': ObjectId('666a42d5bae506d59146744f')}, update)
+    else: 
+        return "qtd has to be a int number between 0 and 30"
+
+
+
+    

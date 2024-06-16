@@ -7,12 +7,13 @@ var input_element = document.getElementById('channel')
 var h1_video_qtd = document.getElementById('qtd')
 var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
+var start_qtd_value = 0
 var url_ = "https://my-portal-bice.vercel.app"
 
 
 //Use to load the data from api with videos contents
 //when the calls succeeds, it calls the fuction that places the iframes inside the div content
-function load_iframes(rfr=false, quantidade = 2){    
+function load_iframes(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), change_qtd = false){    
     if (rfr){
         clear_div()
     }
@@ -20,9 +21,9 @@ function load_iframes(rfr=false, quantidade = 2){
     $.ajax({
         type: 'POST',
         url: url,
-        data: JSON.stringify({refresh:rfr,videos_quantity_peer_channel: quantidade}),
+        data: JSON.stringify({refresh: rfr, videos_quantity_peer_channel: quantidade, change_videos_qtd: change_qtd}),
         contentType: "application/json",
-        success: function(data){load_iframes_in_site(data['videos_list'])},
+        success: function(data){load_iframes_in_site(data['videos_list'].reverse()); h1_video_qtd.innerText = data['videos_qtd']; start_qtd_value = data['videos_qtd']},
         dataType:'json'
     })
 }
@@ -124,10 +125,18 @@ function lower_video_qtd(){
     }
 }
 
+function check_qtd_update(){
+    if (parseInt(h1_video_qtd.innerText) == start_qtd_value){
+        return false
+    }else{
+        return true
+    }
+}
+
 //At the end of the code i just run the buttons event to triger the functions
 remove_button.addEventListener('click', delete_channel)
 add_button.addEventListener('click', add_channel)
-refresh_button.addEventListener('click', function(){load_iframes(rfr=true,quantidade=get_video_qtd())})
+refresh_button.addEventListener('click', function(){load_iframes(rfr=true,quantidade=get_video_qtd(), change_qtd = check_qtd_update())})
 less_than_button.addEventListener('click', lower_video_qtd)
 gr_than_button.addEventListener('click',grower_video_qtd )
 

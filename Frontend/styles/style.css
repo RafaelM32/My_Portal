@@ -31,7 +31,7 @@ img{
 
 button{
     color: azure;
-    font-size: medium;
+    font-size: 0.7vw;
     width: 95%;
     height: 3vw;
     background-color: gray;
@@ -64,7 +64,7 @@ input{
 }
 
 .updow{
-    font-size: larger;
+    font-size: 1.3vw;
 }
 #iside_div_video_qtd{
     display: grid;
