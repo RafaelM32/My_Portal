@@ -8,12 +8,11 @@ var h1_video_qtd = document.getElementById('qtd')
 var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
 var start_qtd_value = 0
+var videos_tumbs_dic = {'videos':[], 'tumbs': []}
 var url_ = "http://127.0.0.1:5000"
-
-
 //Use to load the data from api with videos contents
 //when the calls succeeds, it calls the fuction that places the iframes inside the div content
-function load_iframes(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), change_qtd = false){    
+function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), change_qtd = false){    
     if (rfr){
         clear_div()
     }
@@ -23,7 +22,7 @@ function load_iframes(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), 
         url: url,
         data: JSON.stringify({refresh: rfr, videos_quantity_peer_channel: quantidade, change_videos_qtd: change_qtd}),
         contentType: "application/json",
-        success: function(data){load_iframes_in_site(data['videos_list']); h1_video_qtd.innerText = data['videos_qtd']; start_qtd_value = data['videos_qtd']},
+        success: function(data){load_tumb_video_dic(data['videos_list'],data['tumb_list']); load_tumbs_in_site(videos_tumbs_dic['tumbs']); h1_video_qtd.innerText = data['videos_qtd']; start_qtd_value = data['videos_qtd']},
         dataType:'json'
     })
 }
@@ -79,16 +78,16 @@ function make_iframe_object(video){
 
 
 //This function is to add a iframe inside the content div
-function add_iframe_to_div(ifr){
+function add_element_to_div(element){
     const div = document.getElementById('content')
-    div.appendChild(make_iframe_object(ifr))
+    div.appendChild(make_iframe_object(element))
 }
 
 
 //This function adds all the videos inside the div content
 function load_iframes_in_site(iframe_lista){
     for (i in iframe_lista){
-        add_iframe_to_div(iframe_lista[i])
+        add_element_to_div(iframe_lista[i])
     }
 }
 
@@ -133,13 +132,45 @@ function check_qtd_update(){
     }
 }
 
+function make_tumb(tumb_url){
+    const tumb = document.createElement('img')
+    tumb.title = "Youtube Tumb"
+    tumb.src = tumb_url
+    tumb.classList.add('tumb_img')
+    tumb.addEventListener('click', function(){click_on_tumb(tumb_url)})
+    return tumb
+}
+
+function click_on_tumb(t){
+    console.log(t)
+}
+
+function add_tumb_to_div(tumb){
+    const div = document.getElementById('content')
+    div.appendChild(tumb)
+}
+
+function load_tumbs_in_site(tumbs){
+    for(i in tumbs){
+        add_tumb_to_div(make_tumb(tumbs[i]))
+    }
+}
+
+function load_tumb_video_dic(video_list,img_list){
+    for(i in video_list){
+        videos_tumbs_dic['videos'].push(video_list[i])
+        videos_tumbs_dic['tumbs'].push(img_list[i])
+    }
+    console.log(videos_tumbs_dic)
+}
+
 //At the end of the code i just run the buttons event to triger the functions
 remove_button.addEventListener('click', delete_channel)
 add_button.addEventListener('click', add_channel)
-refresh_button.addEventListener('click', function(){load_iframes(rfr=true,quantidade=get_video_qtd(), change_qtd = check_qtd_update())})
+refresh_button.addEventListener('click', function(){load_content(rfr=true,quantidade=get_video_qtd(), change_qtd = check_qtd_update())})
 less_than_button.addEventListener('click', lower_video_qtd)
 gr_than_button.addEventListener('click',grower_video_qtd )
 
 
 //Here is just to call the function when i load the page
-load_iframes(rfr=false,quantidade=get_video_qtd())
+load_content(rfr=false,quantidade=get_video_qtd())

@@ -21,7 +21,7 @@ body::-webkit-scrollbar{
     background-color: gray;
 }
 
-img{
+#logo{
     width: 100%;
     height: auto;
     border-color: rgb(97, 97, 97);
@@ -69,4 +69,17 @@ input{
 #iside_div_video_qtd{
     display: grid;
     grid-template-columns: 33% 33% 33%;
+}
+
+.tumb_img{
+    width: 23.7%;
+    height: 12vw;
+    margin: 0.5%;
+    margin-bottom: 3%;
+    border-radius: 5%;
+    object-fit: cover;
+}
+
+.tumb_img:hover{
+    cursor: pointer;
 }
