@@ -1,6 +1,13 @@
+@font-face {
+  font-family: 'minha_fonte'; /* Give your font a unique name */
+  src: url('fonts/Roboto/Roboto-Regular.ttf')
+       
+}
+
 body{
-    background-color: dimgrey;
+    background-color: rgb(60, 60, 60);
     color: azure;
+    font-family: minha_fonte;
 }
 
 body::-webkit-scrollbar{
@@ -39,7 +46,11 @@ button{
 }
 
 #content{
+    align-items: center;
     padding: 1%;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: auto;
 }
 
 iframe{
@@ -72,14 +83,27 @@ input{
 }
 
 .tumb_img{
-    width: 23.7%;
-    height: 12vw;
-    margin: 0.5%;
-    margin-bottom: 3%;
+    width: 19vw;
+    height: 13vw;
     border-radius: 5%;
     object-fit: cover;
 }
 
 .tumb_img:hover{
     cursor: pointer;
+}
+
+.div_tumb{
+    display: grid;
+    grid-template-rows: 10vw 9vw;
+    width: 98%;
+    height: auto;
+    margin-bottom: -3vw;
+}
+
+.div_tittle{
+    font-size: 1.4vw;
+    margin-top: 1.2vw;
+    overflow: hidden;
+    
 }
