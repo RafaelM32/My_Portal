@@ -8,7 +8,7 @@ var h1_video_qtd = document.getElementById('qtd')
 var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
 var start_qtd_value = 0
-var videos_tumbs_dic = {'videos':[], 'tumbs': []}
+var videos_tumbs_dic = {'videos':[], 'tumbs': [], 'tittles': []}
 var url_ = "http://127.0.0.1:5000"
 //Use to load the data from api with videos contents
 //when the calls succeeds, it calls the fuction that places the iframes inside the div content
@@ -22,7 +22,7 @@ function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), 
         url: url,
         data: JSON.stringify({refresh: rfr, videos_quantity_peer_channel: quantidade, change_videos_qtd: change_qtd}),
         contentType: "application/json",
-        success: function(data){load_tumb_video_dic(data['videos_list'],data['tumb_list']); load_tumbs_in_site(videos_tumbs_dic['tumbs']); h1_video_qtd.innerText = data['videos_qtd']; start_qtd_value = data['videos_qtd']; console.log(data['tittle_list'])},
+        success: function(data){load_videos_status(data); load_tumbs_in_site(videos_tumbs_dic);console.log(data)},
         dataType:'json'
     })
 }
@@ -124,6 +124,14 @@ function lower_video_qtd(){
     }
 }
 
+function load_videos_status(d){
+    videos_tumbs_dic['videos'] = d['videos_list']
+    videos_tumbs_dic['tumbs'] = d['tumb_list']
+    videos_tumbs_dic['tittles'] = d['tittle_list']
+    start_qtd_value = d['videos_qtd']
+    h1_video_qtd.innerText = d['videos_qtd']
+}
+
 function check_qtd_update(){
     if (parseInt(h1_video_qtd.innerText) == start_qtd_value){
         return false
@@ -141,18 +149,50 @@ function make_tumb(tumb_url){
     return tumb
 }
 
+function make_div_tumb(){
+    const div_tumb = document.createElement('div')
+    div_tumb.classList.add('div_tumb')
+    return div_tumb
+}
+
+function make_tittle(tex){
+    const tittle_element = document.createElement('p')
+    tittle_element.innerHTML = tex
+    return tittle_element
+}
+
+function make_div_tittle(){
+    const div_tittle = document.createElement('div')
+    div_tittle.classList.add('div_tittle')
+    return div_tittle
+}
+
+function build_tittle_to_page(url_tumb,tittle_text){
+    const div_tumb = make_div_tumb()
+    const tumb = make_tumb(url_tumb)
+    const div_tittle = make_div_tittle()
+    const p = make_tittle(tittle_text)
+
+    div_tittle.appendChild(p)
+    div_tumb.appendChild(tumb)
+    div_tumb.appendChild(div_tittle)
+
+    return div_tumb
+
+}
+
 function click_on_tumb(t){
     console.log(t)
 }
 
-function add_tumb_to_div(tumb){
+function add_div_tumb_to_div_content(div_tumb){
     const div = document.getElementById('content')
-    div.appendChild(tumb)
+    div.appendChild(div_tumb)
 }
 
-function load_tumbs_in_site(tumbs){
-    for(i in tumbs){
-        add_tumb_to_div(make_tumb(tumbs[i]))
+function load_tumbs_in_site(videos_dic){
+    for(i in videos_dic['videos']){
+        add_div_tumb_to_div_content(build_tittle_to_page(videos_dic['tumbs'][i],videos_dic['tittles'][i]))
     }
 }
 
@@ -160,6 +200,7 @@ function load_tumb_video_dic(video_list,img_list){
     for(i in video_list){
         videos_tumbs_dic['videos'].push(video_list[i])
         videos_tumbs_dic['tumbs'].push(img_list[i])
+        videos_tumbs_dic['tittles'].push()
     }
     console.log(videos_tumbs_dic)
 }

@@ -102,8 +102,8 @@ input{
 }
 
 .div_tittle{
-    font-size: 1.4vw;
-    margin-top: 1.2vw;
+    font-size: 1.2vw;
+    margin-top: 1.8vw;
     overflow: hidden;
-    
+    margin-left: 1vw;
 }
