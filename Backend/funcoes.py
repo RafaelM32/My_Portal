@@ -12,18 +12,16 @@ def html_from_url(url):
 def list_of_videos_and_images(url):
     videos_list = []
     tumb_list = []
+    tittle_list = []
     page = html_from_url(url)
     images = page.split('{"thumbnails":[{"url":')[1:-2]
     for image in images:
         tumb_link = take_tumb(image)
         if '://i.ytimg.com/vi' in tumb_link:
-            print(take_title(image))
+            tittle_list.append(take_title(image))
             videos_list.append(take_video_code(tumb_link))
             tumb_list.append(tumb_link)
-    print()
-    print()
-    print()
-    return {'videos_list': videos_list, 'tumb_list':  tumb_list}
+    return {'videos_list': videos_list, 'tumb_list':  tumb_list, 'tittle_list': tittle_list}
 
 
 #This function cheks if has bem passed more than x minutes
@@ -68,6 +66,7 @@ def update_videos_list():
         lista_de_videos_e_imagens_no_canal = list_of_videos_and_images(canal)
         update_channel_videos_list(canal,lista_de_videos_e_imagens_no_canal['videos_list'])
         update_channel_tumb_list(canal,lista_de_videos_e_imagens_no_canal['tumb_list'])
+        update_channel_tittle_list(canal,lista_de_videos_e_imagens_no_canal['tittle_list'])
     make_videos_list()
 
 
@@ -102,7 +101,10 @@ def youtube_text_decode(texto:str):
                ['\\xc2\\xba','º'],['\\xf0\\x9f\\xa4\\xa3','&#129315;'],['\\xf0\\x9f\\x98\\x82','&#128514;'],
                ['\\xf0\\x9f\\x98\\x8e','&#128526;'],['\\xf0\\x9f\\x91\\x8a\\xf0\\x9f\\x8f\\xbc','&#128074;&#127996;'],
                ['\\xf0\\x9f\\x8f\\x8d\\xef\\xb8\\x8','&#127949;&#65039;'],['\\xf0\\x9f\\x91\\xb6','&#128118;'],
-               ['\\xf0\\x9f\\xa7\\x91','&#129489;'],['\\xe2\\x80\\x8d','&zwj;'],['\\xe2\\x9a\\x96\\xef\\xb8\\x8f','&#9878;&#65039;']]
+               ['\\xf0\\x9f\\xa7\\x91','&#129489;'],['\\xe2\\x80\\x8d','&zwj;'],['\\xe2\\x9a\\x96\\xef\\xb8\\x8f','&#9878;&#65039;'],
+               ['\\xe2\\x9c\\x88\\xef\\xb8\\x8f','&#9992;&#x2708;'],['\\xf0\\x9f\\xa4\\x96','&#129302;'],['\\xf0\\x9f\\x90\\xb6','&#128054;&#x1F436;'],
+               ['\\xf0\\x9f\\x95\\xb9\\xef\\xb8\\x8','&#128377;'],['\\xf0\\x9f\\xa4\\xa2','&#129314;'],['\\xf0\\x9f\\x98\\xad','&#128557;'],
+               ['\\xe2\\x80\\xbc\\xef\\xb8\\x8f','!!'],['\\xc3\\xba','ú']]
     for codigo in codigos:
         texto = texto.replace(codigo[0],codigo[1])
     return texto

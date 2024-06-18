@@ -22,7 +22,7 @@ function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), 
         url: url,
         data: JSON.stringify({refresh: rfr, videos_quantity_peer_channel: quantidade, change_videos_qtd: change_qtd}),
         contentType: "application/json",
-        success: function(data){load_tumb_video_dic(data['videos_list'],data['tumb_list']); load_tumbs_in_site(videos_tumbs_dic['tumbs']); h1_video_qtd.innerText = data['videos_qtd']; start_qtd_value = data['videos_qtd']},
+        success: function(data){load_tumb_video_dic(data['videos_list'],data['tumb_list']); load_tumbs_in_site(videos_tumbs_dic['tumbs']); h1_video_qtd.innerText = data['videos_qtd']; start_qtd_value = data['videos_qtd']; console.log(data['tittle_list'])},
         dataType:'json'
     })
 }

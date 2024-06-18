@@ -52,17 +52,23 @@ def make_videos_list():
     delete_video_list()
     lista_v = []
     lista_t = []
+    lista_tittle = []
     qtd = load_video_list()['videos_qtd']
     for canal in load_channels():
         l =  canal['video_list']
         t = canal['tumb_list']
+        tittle = canal['tittle_list']
         for i in range(qtd):
             lista_v.append(l[i])
             lista_t.append(t[i])
+            lista_tittle.append(tittle[i])
     update_v = {'$set': {'videos': lista_v}}
     update_t = {'$set': {'tumbs': lista_t}}
+    update_tittle = {'$set': {'tittles': lista_tittle}}
     videos_list.update_one({'_id': ObjectId('666a42d5bae506d59146744f')}, update_v)
     videos_list.update_one({'_id': ObjectId('666a42d5bae506d59146744f')}, update_t)
+    videos_list.update_one({'_id': ObjectId('666a42d5bae506d59146744f')}, update_tittle)
+
     save_time_in_data_base()
 
 def load_video_list():
@@ -88,6 +94,11 @@ def update_channel_tumb_list(channel, tumblist):
     update = {'$set': {'tumb_list': tumblist}}
     channel_to_update = {'channel_url': channel}
     channels_collection.update_one(channel_to_update,update)
+
+def update_channel_tittle_list(channel, tittle_list):
+    update = {'$set': {'tittle_list': tittle_list}}
+    channel_to_pdate = {'channel_url': channel}
+    channels_collection.update_one(channel_to_pdate, update)
 
 
 

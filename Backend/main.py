@@ -28,6 +28,8 @@ def iframes():
         resposta['videos_list'] = r['videos']
         resposta['videos_qtd']  = r['videos_qtd']
         resposta['tumb_list']   = r['tumbs']
+        resposta['tittle_list'] = r['tittles']
+
         return make_response(json.jsonify(resposta))
     
     else:
@@ -37,6 +39,7 @@ def iframes():
         resposta['videos_list'] = r['videos']
         resposta['videos_qtd']  = r['videos_qtd']
         resposta['tumb_list']   = r['tumbs']
+        resposta['tittle_list'] = r['tittles']
         return make_response(json.jsonify(resposta))
 
 
