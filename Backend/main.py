@@ -32,8 +32,8 @@ def iframes():
         return make_response(json.jsonify(resposta))
     
     else:
-        update_videos_qtd(requisicao['videos_quantity_peer_channel'])
-        update_videos_list()
+        #update_videos_qtd(requisicao['videos_quantity_peer_channel'])
+        #update_videos_list()
         r = send_videos_list()
         resposta['videos_qtd']  = r['videos_qtd']
         resposta['videos_list'] = r['videos'][::-1]
