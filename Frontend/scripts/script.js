@@ -181,8 +181,8 @@ function build_tittle_to_page(url_tumb,tittle_text){
 
 }
 
-function click_on_tumb(t){
-    console.log(t)
+function click_on_tumb(tumb_url){
+    change_div_for_iframe(tumb_url)
 }
 
 function add_div_tumb_to_div_content(div_tumb){
@@ -196,6 +196,17 @@ function load_tumbs_in_site(videos_dic){
     }
 }
 
+function change_div_for_iframe(url_tumb){
+    const imgs = document.getElementsByClassName('tumb_img')
+    for(i in imgs){
+        if(imgs[i].src == url_tumb){
+            const div_to_replace = imgs[i].parentElement
+            const container = div_to_replace.parentElement
+            container.replaceChild(make_iframe_object(select_video_by_tumb_url(url_tumb)),div_to_replace)
+        }
+    }
+}
+
 function load_tumb_video_dic(video_list,img_list){
     for(i in video_list){
         videos_tumbs_dic['videos'].push(video_list[i])
@@ -203,6 +214,14 @@ function load_tumb_video_dic(video_list,img_list){
         videos_tumbs_dic['tittles'].push()
     }
     console.log(videos_tumbs_dic)
+}
+
+function select_video_by_tumb_url(tumb_url){
+    for(i in videos_tumbs_dic['tumbs']){
+        if (videos_tumbs_dic['tumbs'][i] == tumb_url){
+            return videos_tumbs_dic['videos'][i]
+        }
+    }
 }
 
 //At the end of the code i just run the buttons event to triger the functions
