@@ -9,7 +9,7 @@ var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
 var start_qtd_value = 0
 var videos_tumbs_dic = {'videos':[], 'tumbs': [], 'tittles': []}
-var url_ = "http://127.0.0.1:5000"
+var url_ = "https://my-portal-bice.vercel.app"
 //Use to load the data from api with videos contents
 //when the calls succeeds, it calls the fuction that places the iframes inside the div content
 function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), change_qtd = false){    
@@ -22,7 +22,7 @@ function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), 
         url: url,
         data: JSON.stringify({refresh: rfr, videos_quantity_peer_channel: quantidade, change_videos_qtd: change_qtd}),
         contentType: "application/json",
-        success: function(data){load_videos_status(data); load_tumbs_in_site(videos_tumbs_dic);console.log(data)},
+        success: function(data){load_videos_status(data); load_tumbs_in_site(videos_tumbs_dic)},
         dataType:'json'
     })
 }
@@ -83,13 +83,6 @@ function add_element_to_div(element){
     div.appendChild(make_iframe_object(element))
 }
 
-
-//This function adds all the videos inside the div content
-function load_iframes_in_site(iframe_lista){
-    for (i in iframe_lista){
-        add_element_to_div(iframe_lista[i])
-    }
-}
 
 //This function is to clear the div when before refresh the content
 function clear_div(){
@@ -207,14 +200,6 @@ function change_div_for_iframe(url_tumb){
     }
 }
 
-function load_tumb_video_dic(video_list,img_list){
-    for(i in video_list){
-        videos_tumbs_dic['videos'].push(video_list[i])
-        videos_tumbs_dic['tumbs'].push(img_list[i])
-        videos_tumbs_dic['tittles'].push()
-    }
-    console.log(videos_tumbs_dic)
-}
 
 function select_video_by_tumb_url(tumb_url){
     for(i in videos_tumbs_dic['tumbs']){

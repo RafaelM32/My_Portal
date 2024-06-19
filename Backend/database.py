@@ -62,6 +62,9 @@ def make_videos_list():
             lista_v.append(l[i])
             lista_t.append(t[i])
             lista_tittle.append(tittle[i])
+        lista_v = reverce_last_qtd_elements(qtd,lista_v)
+        lista_t = reverce_last_qtd_elements(qtd,lista_t)
+        lista_tittle = reverce_last_qtd_elements(qtd,lista_tittle)
     update_v = {'$set': {'videos': lista_v}}
     update_t = {'$set': {'tumbs': lista_t}}
     update_tittle = {'$set': {'tittles': lista_tittle}}
@@ -100,7 +103,10 @@ def update_channel_tittle_list(channel, tittle_list):
     channel_to_pdate = {'channel_url': channel}
     channels_collection.update_one(channel_to_pdate, update)
 
-
-
-
-    
+def reverce_last_qtd_elements(qtd,lista):
+    aux = []
+    for i in range(-1, -qtd -1, -1):
+        aux.append(lista[i])
+    for i in range(-1, -qtd -1, -1):
+        lista[i] = aux[i]
+    return lista
