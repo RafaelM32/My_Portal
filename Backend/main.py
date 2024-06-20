@@ -6,7 +6,7 @@ import threading
 
 
 app = Flask(__name__)
-CORS(app,origins=['https://favyt.netlify.app'])
+CORS(app, origins=['https://favyt.netlify.app'])
 
 @app.route("/")
 def aplication_status():
@@ -23,7 +23,10 @@ def iframes():
     requisicao = request.json
     resposta = {'ok': True}
     
-    update_videos_qtd(requisicao['videos_quantity_peer_channel'])
+    if requisicao['refresh']:
+        update_videos_qtd(requisicao['videos_quantity_peer_channel'])
+        update = threading.Thread(target=update_videos_list, args=())
+        update.start()
     r = send_videos_list()
     resposta['videos_qtd']  = r['videos_qtd']
     resposta['videos_list'] = r['videos'][::-1]
