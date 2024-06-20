@@ -61,6 +61,7 @@ def delete_channel(channel):
 
 #This function makes de reload of the videos in channels
 def update_videos_list():
+    print('A função update foi chamada')
     for canal in load_channels_list_in_database():
         lista_de_videos_e_imagens_no_canal = list_of_videos_and_images(canal)
         update_channel_videos_list(canal,lista_de_videos_e_imagens_no_canal['videos_list'])
