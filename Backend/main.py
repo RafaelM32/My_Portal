@@ -25,6 +25,9 @@ def iframes():
     resposta = {'ok': True}
     
     if requisicao['refresh']:
+        up = threading.Thread(target= update_videos_list, args=())
+        up.start()
+        up.join()
         update_videos_qtd(requisicao['videos_quantity_peer_channel'])
     r = send_videos_list()
     resposta['videos_qtd']  = r['videos_qtd']
@@ -58,7 +61,4 @@ def channel_list():
 
 
 if __name__ == '__main__':
-    up = threading.Thread(target= check_for_udate, args=())
-    up.start()
-
     app.run(debug=True)
