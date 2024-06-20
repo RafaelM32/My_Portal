@@ -110,6 +110,6 @@ def youtube_text_decode(texto:str):
 
 def check_for_udate():
     while True:
-        time.sleep(600)
+        time.sleep(1800)
         update_videos_list()
 
