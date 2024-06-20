@@ -1,6 +1,7 @@
 from flask import Flask, json, make_response, request
 from funcoes import*
 from flask_cors import CORS
+import multiprocessing
 import threading
 
 
@@ -26,8 +27,6 @@ def iframes():
     
     if requisicao['refresh']:
         update_videos_qtd(requisicao['videos_quantity_peer_channel'])
-        up = threading.Thread(target= update_videos_list, args=())
-        up.start()
     r = send_videos_list()
     resposta['videos_qtd']  = r['videos_qtd']
     resposta['videos_list'] = r['videos'][::-1]
@@ -60,4 +59,6 @@ def channel_list():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    p1 = threading.Thread(target=check_for_udate, args=())
+    p1.start()
+    app.run()

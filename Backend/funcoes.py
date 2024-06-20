@@ -61,10 +61,7 @@ def delete_channel(channel):
 
 #This function makes de reload of the videos in channels
 def update_videos_list():
-    print('A função update foi chamada')
-    print()
     for canal in load_channels_list_in_database():
-        print(f'está varrendo o canal : {canal}')
         lista_de_videos_e_imagens_no_canal = list_of_videos_and_images(canal)
         update_channel_videos_list(canal,lista_de_videos_e_imagens_no_canal['videos_list'])
         update_channel_tumb_list(canal,lista_de_videos_e_imagens_no_canal['tumb_list'])
@@ -114,4 +111,5 @@ def youtube_text_decode(texto:str):
 def check_for_udate():
     while True:
         update_videos_list()
-        time.sleep(1)
+        print('lista atualizada')
+        time.sleep(30)

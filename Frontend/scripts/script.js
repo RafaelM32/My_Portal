@@ -22,7 +22,7 @@ function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), 
         url: url,
         data: JSON.stringify({refresh: rfr, videos_quantity_peer_channel: quantidade, change_videos_qtd: change_qtd}),
         contentType: "application/json",
-        success: function(data){load_videos_status(data); load_tumbs_in_site(videos_tumbs_dic); console.log(data)},
+        success: function(data){load_videos_status(data); load_tumbs_in_site(videos_tumbs_dic)},
         dataType:'json'
     })
 }
