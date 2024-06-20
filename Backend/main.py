@@ -60,6 +60,4 @@ def channel_list():
 
 
 if __name__ == '__main__':
-    check = threading.Thread(target=check_for_udate, args=())
-    check.start()
     app.run(debug=True)
