@@ -10,11 +10,6 @@
         "headers": {
             "Access-Control-Allow-Origin": "https://favyt.netlify.app"
         }
-    }],
-    "functions": {
-        "app/api/**/*": {
-          "maxDuration": 40 
-        }
-    }
+    }]
     
 }
