@@ -113,3 +113,4 @@ def check_for_udate():
         time.sleep(1800)
         update_videos_list()
 
+update_videos_list()
