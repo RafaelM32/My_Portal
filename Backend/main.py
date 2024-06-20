@@ -1,11 +1,12 @@
 from flask import Flask, json, make_response, request
 from funcoes import*
 from flask_cors import CORS
+import threading
 
 
 
 app = Flask(__name__)
-CORS(app, origins=['https://favyt.netlify.app'])
+CORS(app,origins=['https://favyt.netlify.app'])
 
 @app.route("/")
 def aplication_status():
@@ -21,25 +22,14 @@ def iframes():
 
     requisicao = request.json
     resposta = {'ok': True}
-
     
-    if not is_more_the_x_minutes(10) and not requisicao['refresh'] and not requisicao['change_videos_qtd']: #If did not pass 10 minutes and you dont use the refresh button 
-        r = send_videos_list()
-        resposta['videos_qtd']  = r['videos_qtd']
-        resposta['videos_list'] = r['videos'][::-1]
-        resposta['tumb_list']   = r['tumbs'][::-1]
-        resposta['tittle_list'] = r['tittles'][::-1]
-        return make_response(json.jsonify(resposta))
-    
-    else:
-        update_videos_qtd(requisicao['videos_quantity_peer_channel'])
-        update_videos_list()
-        r = send_videos_list()
-        resposta['videos_qtd']  = r['videos_qtd']
-        resposta['videos_list'] = r['videos'][::-1]
-        resposta['tumb_list']   = r['tumbs'][::-1]
-        resposta['tittle_list'] = r['tittles'][::-1]
-        return make_response(json.jsonify(resposta))
+    update_videos_qtd(requisicao['videos_quantity_peer_channel'])
+    r = send_videos_list()
+    resposta['videos_qtd']  = r['videos_qtd']
+    resposta['videos_list'] = r['videos'][::-1]
+    resposta['tumb_list']   = r['tumbs'][::-1]
+    resposta['tittle_list'] = r['tittles'][::-1]
+    return make_response(json.jsonify(resposta))
 
 
 
@@ -66,4 +56,6 @@ def channel_list():
 
 
 if __name__ == '__main__':
+    check = threading.Thread(target=check_for_udate, args=())
+    check.start()
     app.run(debug=True)

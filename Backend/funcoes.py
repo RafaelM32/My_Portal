@@ -108,3 +108,8 @@ def youtube_text_decode(texto:str):
         texto = texto.replace(codigo[0],codigo[1])
     return texto
 
+def check_for_udate():
+    while True:
+        time.sleep(600)
+        update_videos_list()
+

@@ -2,6 +2,7 @@ from pymongo import MongoClient
 from xml.dom import minidom
 from bson import ObjectId
 from datetime import datetime
+import time
 import os
 
 cluster = MongoClient(os.environ['MONGODB_URI'])
@@ -110,3 +111,5 @@ def reverce_last_qtd_elements(qtd,lista):
     for i in range(-1, -qtd -1, -1):
         lista[i] = aux[i]
     return lista
+
+
