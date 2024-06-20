@@ -109,7 +109,10 @@ def youtube_text_decode(texto:str):
     return texto
 
 def check_for_udate():
-    while True:
+    while True:        
+        
+        print('o problema é o tempo')
+
         update_videos_list()
         print('lista atualizada')
         time.sleep(30)
