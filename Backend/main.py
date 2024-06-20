@@ -17,6 +17,7 @@ def aplication_status():
 #Here i receve the request from the Frontend and check if the last upload was lass then 10 minutes before
 #If so i just send the videos on the videos_list.txt file
 #Else, i reload the video_list.txt file befor send a new one.
+#test
 @app.route("/iframes", methods= ['GET', 'POST'])
 def iframes():
 
