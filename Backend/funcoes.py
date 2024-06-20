@@ -112,5 +112,3 @@ def check_for_udate():
     while True:
         time.sleep(1800)
         update_videos_list()
-
-update_videos_list()
