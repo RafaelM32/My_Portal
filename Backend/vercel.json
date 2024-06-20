@@ -10,7 +10,11 @@
         "headers": {
             "Access-Control-Allow-Origin": "https://favyt.netlify.app"
         }
-    }   
-
-    ]
+    }],
+    "functions": {
+        "app/api/**/*": {
+          "maxDuration": 40 // All functions can run for a maximum of 40 seconds
+        }
+    
+    
 }
