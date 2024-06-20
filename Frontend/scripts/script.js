@@ -9,7 +9,7 @@ var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
 var start_qtd_value = 0
 var videos_tumbs_dic = {'videos':[], 'tumbs': [], 'tittles': []}
-var url_ = "http://127.0.0.1:5000"
+var url_ = "https://my-portal-bice.vercel.app"
 //Use to load the data from api with videos contents
 //when the calls succeeds, it calls the fuction that places the iframes inside the div content
 function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), change_qtd = false){    
