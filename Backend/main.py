@@ -25,9 +25,9 @@ def iframes():
     resposta = {'ok': True}
     
     if requisicao['refresh']:
+        update_videos_qtd(requisicao['videos_quantity_peer_channel'])
         up = threading.Thread(target= update_videos_list, args=())
         up.start()
-        update_videos_qtd(requisicao['videos_quantity_peer_channel'])
     r = send_videos_list()
     resposta['videos_qtd']  = r['videos_qtd']
     resposta['videos_list'] = r['videos'][::-1]

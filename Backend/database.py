@@ -51,6 +51,7 @@ def load_channels():
 
 def make_videos_list():
     delete_video_list()
+    print('a função make_videos foi chamada')
     lista_v = []
     lista_t = []
     lista_tittle = []
