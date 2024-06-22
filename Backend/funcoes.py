@@ -8,18 +8,19 @@ def html_from_url(url):
 
 
 #This function extracts the url from the videos in the page
-def list_of_videos_and_images(url):
+def list_of_videos_and_images(url,qtd):
     videos_list = []
     tumb_list = []
     tittle_list = []
     page = html_from_url(url)
     images = page.split('{"thumbnails":[{"url":')[1:-2]
-    for image in images:
-        tumb_link = take_tumb(image)
-        if '://i.ytimg.com/vi' in tumb_link:
-            tittle_list.append(take_title(image))
-            videos_list.append(take_video_code(tumb_link))
-            tumb_list.append(tumb_link)
+    for i in range(0,len(images)):
+        if i <= qtd:
+            tumb_link = take_tumb(images[i])
+            if '://i.ytimg.com/vi' in tumb_link:
+                tittle_list.append(take_title(images[i]))
+                videos_list.append(take_video_code(tumb_link))
+                tumb_list.append(tumb_link)
     return {'videos_list': videos_list, 'tumb_list':  tumb_list, 'tittle_list': tittle_list}
 
 
@@ -60,9 +61,9 @@ def delete_channel(channel):
 
 
 #This function makes de reload of the videos in channels
-def update_videos_list():
+def update_videos_list(qtd):
     for canal in load_channels_list_in_database():
-        lista_de_videos_e_imagens_no_canal = list_of_videos_and_images(canal)
+        lista_de_videos_e_imagens_no_canal = list_of_videos_and_images(canal,qtd)
         update_channel_videos_list(canal,lista_de_videos_e_imagens_no_canal['videos_list'])
         update_channel_tumb_list(canal,lista_de_videos_e_imagens_no_canal['tumb_list'])
         update_channel_tittle_list(canal,lista_de_videos_e_imagens_no_canal['tittle_list'])
@@ -81,9 +82,9 @@ def take_video_code(url):
     return url.split('/')[4]
 
 def take_title(string):
-    return youtube_text_decode(string.split('"title"')[1].split('{')[2][8:-20])
+    return string.split('"title"')[1].split('{')[2][8:-20]
 
-def youtube_text_decode(texto:str):
+'''def youtube_text_decode(texto:str):
     codigos = [['\\\\"', '"'],['\\xc3\\x83','Ã'],['\\xc3\\x82','Â'],['\\xc3\\x87', 'Ç'],
                ['\\xf0\\x9f\\x8c\\x88','&#127752;'],['\\xc3\\x8a','Ê'],['\\xc3\\x8d', 'Í'],
                ['\\xf0\\x9f\\x9a\\xa8','&#128680;'],['\\xc3\\x81','Á'],['\\xc3\\x89','É'],
@@ -107,6 +108,7 @@ def youtube_text_decode(texto:str):
     for codigo in codigos:
         texto = texto.replace(codigo[0],codigo[1])
     return texto
+'''
 
 def check_for_udate():
     while True:        
