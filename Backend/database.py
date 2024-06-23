@@ -112,4 +112,3 @@ def reverce_last_qtd_elements(qtd,lista):
         lista[i] = aux[i]
     return lista
 
-
