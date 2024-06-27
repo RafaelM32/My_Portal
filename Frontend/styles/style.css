@@ -235,5 +235,12 @@ input{
         margin-top: -18vw;
     }
 
+    iframe{
+        width: 80vw;
+        height: 50vw;
+        border-radius: 2%;
+        margin-bottom: 10vw;
+    }
+
     
   }
