@@ -198,9 +198,7 @@ input{
         display: grid;
         grid-template-columns: 80% 20%;
     }
-    #more_video{
-        
-    }
+    
 
     h2{
         margin-top: 3vw;
@@ -225,18 +223,18 @@ input{
         grid-template-rows: 65vw 9vw;
         width: 10vw;
         height: fit-content;
-        margin-bottom: -15vw;
+        margin-bottom: -12vw;
     }
     .div_tittle{
         text-align: center;
         font-size: 3vw;
         overflow: hidden;
         margin-left: 1vw;
-        margin-top: -18vw;
+        margin-top: -13vw;
     }
 
     iframe{
-        width: 80vw;
+        width: 80%;
         height: 50vw;
         border-radius: 2%;
         margin-bottom: 10vw;
