@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=['https://favyt.netlify.app'])
 
 @app.route("/")
 def aplication_status():
