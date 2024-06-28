@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app, origins=['https://favyt.netlify.app'])
+CORS(app)
 
 @app.route("/")
 def aplication_status():
@@ -53,9 +53,20 @@ def channel_list():
     
 
     elif request.method == 'GET':
-        resposta = {'ok': True, 'chanels_list': load_channels_list_in_database()}
+        resposta = {'ok': True, 'chanels_list': load_channels_list_in_database(), 'qtd': load_video_list()['videos_qtd']}
         return make_response(json.jsonify(resposta))
 
+@app.route('/videos', methods=['POST'])
+def videos():
+    requisicao = request.json
+    resposta = list_of_videos_and_images(requisicao['channel'])
+    return resposta
+
+@app.route('/qtd', methods=['POST'])
+def update_qtd():
+    requisicao = request.json
+    update_videos_qtd(requisicao['new_qtd'])
+    return make_response(json.jsonify({'ok': True}))
 
 if __name__ == '__main__':
     app.run()

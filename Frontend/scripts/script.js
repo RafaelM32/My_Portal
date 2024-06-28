@@ -9,7 +9,7 @@ var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
 var start_qtd_value = 0
 var videos_tumbs_dic = {'videos':[], 'tumbs': [], 'tittles': []}
-var url_ = "https://my-portal-bice.vercel.app"
+var url_ = "http://127.0.0.1:5000"
 //Use to load the data from api with videos contents
 //when the calls succeeds, it calls the fuction that places the iframes inside the div content
 function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), change_qtd = false){    
@@ -236,13 +236,75 @@ function decode_text(texto){
     return texto
 }
 
+
+function load_channels(){
+    const url = `${url_}/channel_list`
+    $.ajax({
+        type:'GET',
+        url: `${url_}/channel_list`,
+        success: function(data){load_videos_pear_channel(data['chanels_list'].reverse()); update_qtd(data['qtd'])}
+
+    })
+    
+    
+}
+
+function load_videos_in_channel(channel){
+    const url = `${url_}/videos`
+    $.ajax({
+        type:'POST',
+        url: url,
+        data: JSON.stringify({channel: channel}),
+        contentType: "application/json",
+        success: function(data){append_in_videos_dic(data)},
+        dataType: "json"
+    })
+}
+
+function append_in_videos_dic(d){
+    for(i in d['videos_list']){
+        videos_tumbs_dic['videos'].push(d['videos_list'][i])
+        videos_tumbs_dic['tumbs'].push(d['tumb_list'][i])
+        videos_tumbs_dic['tittles'].push(d['tittle_list'][i])
+        add_div_tumb_to_div_content(build_tittle_to_page(d['tumb_list'][i],d['tittle_list'][i]))
+    }
+
+    
+}
+
+function load_videos_pear_channel(channel_list){
+    for(i in channel_list){
+        load_videos_in_channel(channel_list[i])
+    }
+}
+
+function update_qtd(num){
+    h1_video_qtd.innerHTML = num
+}
+
+function update_site(){
+    const url_post = `${url_}/qtd`
+    $.ajax({
+        type:"POST",
+        url: url_post,
+        data: JSON.stringify({"new_qtd": get_video_qtd()}),
+        contentType:"application/json",
+        success: function(){clear_div(); load_channels()},
+        dataType:"json"
+
+    })
+}
+
 //At the end of the code i just run the buttons event to triger the functions
 remove_button.addEventListener('click', delete_channel)
 add_button.addEventListener('click', add_channel)
-refresh_button.addEventListener('click', function(){load_content(rfr=true,quantidade=get_video_qtd(), change_qtd = check_qtd_update())})
+refresh_button.addEventListener('click', function(){update_site()})
 less_than_button.addEventListener('click', lower_video_qtd)
 gr_than_button.addEventListener('click',grower_video_qtd )
 
 
 //Here is just to call the function when i load the page
-load_content(rfr=false,quantidade=get_video_qtd())
+//load_content(rfr=false,quantidade=get_video_qtd())
+load_channels()
+
+

@@ -8,7 +8,8 @@ def html_from_url(url):
 
 
 #This function extracts the url from the videos in the page
-def list_of_videos_and_images(url,qtd):
+def list_of_videos_and_images(url):
+    qtd = load_video_list()['videos_qtd']
     videos_list = []
     tumb_list = []
     tittle_list = []
@@ -16,7 +17,7 @@ def list_of_videos_and_images(url,qtd):
     images = page.split('{"thumbnails":[{"url":')[1:-2]
     aux = 0
     for i in range(0,len(images)):
-        if aux <= qtd:
+        if aux < qtd:
             tumb_link = take_tumb(images[i])
             if '://i.ytimg.com/vi' in tumb_link:
                 tittle_list.append(take_title(images[i]))
