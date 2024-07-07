@@ -2,13 +2,15 @@ from pymongo import MongoClient
 from xml.dom import minidom
 from bson import ObjectId
 from datetime import datetime
-import time
 import os
+import bcrypt
 
 cluster = MongoClient(os.environ['MONGODB_URI'])
 database = cluster.favyt
 channels_collection = database.channels
 videos_list = database.videos_list
+users_data = database.users_data
+
 
 def save_channel_in_database(channel):
     new_channel = {'channel_url': channel}
@@ -111,4 +113,44 @@ def reverce_last_qtd_elements(qtd,lista):
     for i in range(-1, -qtd -1, -1):
         lista[i] = aux[i]
     return lista
+
+def creat_userID(username, password):
+    userID = bcrypt.hashpw(bytes(str(username+password),'utf-8'), bytes(os.environ['BCSALT'],'utf-8'))
+    return userID
+
+def valid_usercredentials(username,password,userID):
+    return bcrypt.checkpw(bytes(str(username+password),'utf-8'),userID)
+
+def save_userID(username,password):
+    update = {'userID': creat_userID(username,password)}
+    users_data.insert_one(update)
+
+def load_usersID():
+    usersID = []
+    result = users_data.find({})
+    for user in result:
+        usersID.append(user['userID'])
+    return usersID
+
+def is_user_saved(username,password):
+    usersID = load_usersID()
+    for userID in usersID:
+        if valid_usercredentials(username,password,userID):
+            return [True, userID]
+    return [False, 0]
+
+def save_token_session(token, userID):
+    session_tokens = load_tokens_session(userID)
+    session_tokens.append(token)
+    user_to_update = {'userID': userID}
+    update = {'$set':{'session_tokens': session_tokens}}
+    users_data.update_one(user_to_update, update)
+
+
+
+def load_tokens_session(userID):
+    user_to_select = {'userID': userID}
+    result = users_data.find_one(user_to_select)
+    return result['session_tokens']
+
 

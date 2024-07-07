@@ -1,6 +1,8 @@
 import urllib.request
 from datetime import datetime
 from database import*
+import jwt
+from flask import json
 
 
 def html_from_url(url):
@@ -87,11 +89,22 @@ def take_video_code(url):
 def take_title(string):
     return string.split('"title"')[1].split('{')[2][8:-20]
 
-def check_for_udate():
-    while True:        
-        
-        print('o problema é o tempo')
 
-        update_videos_list()
-        print('lista atualizada')
-        time.sleep(30)
+def generate_token_session(username, sessionIP):
+    return jwt.encode({'username': username, 'sessionIP': sessionIP}, os.environ['SECRET_KEY'],algorithm="HS256")
+
+def decode_token_session(token):
+    return jwt.decode(token,os.environ['SECRET_KEY'], algorithms="HS256")
+
+def is_valid_token(token, sessionIP, username):
+    decoded = decode_token_session(token)
+    if decoded['sessionIP'] == sessionIP and decoded['username'] == username:
+        for userID in load_usersID():
+            for tok in load_tokens_session(userID):
+                if tok == token:
+                    return True
+            return False
+    else:
+        print('is not the same ip')
+        return False
+

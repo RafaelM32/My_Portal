@@ -9,7 +9,8 @@ var less_than_button = document.getElementById('less_video')
 var gr_than_button = document.getElementById('more_video')
 var start_qtd_value = 0
 var videos_tumbs_dic = {'videos':[], 'tumbs': [], 'tittles': []}
-var url_ = "https://my-portal-bice.vercel.app"
+var first_attempt = true
+var url_ = "http://127.0.0.1:5000"
 //Use to load the data from api with videos contents
 //when the calls succeeds, it calls the fuction that places the iframes inside the div content
 function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), change_qtd = false){    
@@ -21,8 +22,11 @@ function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), 
         type: 'POST',
         url: url,
         data: JSON.stringify({refresh: rfr, videos_quantity_peer_channel: quantidade, change_videos_qtd: change_qtd}),
+        xhrFields: {
+            withCredentials: true
+       },
         contentType: "application/json",
-        success: function(data){load_videos_status(data); load_tumbs_in_site(videos_tumbs_dic)},
+        success: function(data){load_videos_status(data); load_tumbs_in_site(videos_tumbs_dic);console.log()},
         dataType:'json'
     })
 }
@@ -35,6 +39,9 @@ function add_channel(){
         type: 'POST',
         url: url,
         data: JSON.stringify({channel: channel}),
+        xhrFields: {
+            withCredentials: true
+       },
         contentType: "application/json",
         success: function(data){show_response(data['status'])},
         dataType:'json'
@@ -50,6 +57,9 @@ function delete_channel(){
         type: 'DELETE',
         url: url,
         data: JSON.stringify({channel: channel}),
+        xhrFields: {
+            withCredentials: true
+       },
         contentType: "application/json",
         success: function(data){show_response(data['status'])},
         dataType:'json'
@@ -255,6 +265,9 @@ function load_videos_in_channel(channel){
         type:'POST',
         url: url,
         data: JSON.stringify({channel: channel}),
+        xhrFields: {
+            withCredentials: true
+       },
         contentType: "application/json",
         success: function(data){append_in_videos_dic(data)},
         dataType: "json"
@@ -288,6 +301,9 @@ function update_site(){
         type:"POST",
         url: url_post,
         data: JSON.stringify({"new_qtd": get_video_qtd()}),
+        xhrFields: {
+            withCredentials: true
+       },
         contentType:"application/json",
         success: function(){clear_div(); load_channels()},
         dataType:"json"

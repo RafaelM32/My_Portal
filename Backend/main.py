@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-CORS(app, origins=['https://favyt.netlify.app'])
+CORS(app,expose_headers=['Access-Control-Allow-Origin'],supports_credentials=True)
 
 @app.route("/")
 def aplication_status():
@@ -53,6 +53,10 @@ def channel_list():
     
 
     elif request.method == 'GET':
+        headers = request.headers
+        cookie = request.cookies.get('session_token')
+        print(cookie)
+        print(headers)
         resposta = {'ok': True, 'chanels_list': load_channels_list_in_database(), 'qtd': load_video_list()['videos_qtd']}
         return make_response(json.jsonify(resposta))
 
@@ -67,6 +71,22 @@ def update_qtd():
     requisicao = request.json
     update_videos_qtd(requisicao['new_qtd'])
     return make_response(json.jsonify({'ok': True}))
+
+@app.route('/login', methods=['POST'])
+def login():
+    requisicao = request.json
+    ip_requisicao = request.remote_addr
+    is_saved, userID = is_user_saved(requisicao['username'],requisicao['password'])
+    if is_saved:
+        token_session = generate_token_session(requisicao['username'],ip_requisicao)
+        if not is_valid_token(token_session, ip_requisicao, requisicao['username']):
+            save_token_session(token_session, userID)
+        resposta = make_response(json.jsonify({'valid_login': True}))
+        resposta.set_cookie('session_token', value = token_session, samesite='None',httponly=True,secure=True, domain='http://127.0.0.1:5000')
+        return resposta
+
+    resposta = make_response(json.jsonify({'valid_login': False, 'status': 'Invalid Credentials'}))
+    return resposta
 
 if __name__ == '__main__':
     app.run()
