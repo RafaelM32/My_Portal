@@ -1,4 +1,4 @@
-const site_url = "http://127.0.0.1:5000"
+const site_url = "https://my-portal-2smtcti2c-rafaelm32s-projects.vercel.app"
 const login_button = document.getElementById('login_button')
 
 function get_username(){
