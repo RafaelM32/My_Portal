@@ -8,7 +8,7 @@
         "dest":"main.py",
         "methods": ["GET", "POST", "PUT", "DELETE", "PATCH","OPTIONS"],
         "headers": {
-            "Access-Control-Allow-Origin": ["https://favyt.netlify.app","https://favytlogin.netlify.app"]
+            "Access-Control-Allow-Origin": "https://favytlogin.netlify.app"
         }
     }]
     
