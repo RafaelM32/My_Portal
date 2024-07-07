@@ -82,7 +82,7 @@ def login():
         if not is_valid_token(token_session, ip_requisicao, requisicao['username']):
             save_token_session(token_session, userID)
         resposta = make_response(json.jsonify({'valid_login': True}))
-        resposta.set_cookie('session_token', value = token_session, samesite='None',httponly=True,secure=True, domain='http://127.0.0.1:5000')
+        resposta.set_cookie('session_token', value = token_session, samesite='None',httponly=True,secure=True, domain='https://my-portal-at29gpji6-rafaelm32s-projects.vercel.app')
         return resposta
 
     resposta = make_response(json.jsonify({'valid_login': False, 'status': 'Invalid Credentials'}))
