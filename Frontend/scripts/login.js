@@ -27,7 +27,7 @@ function send_credencials(){
 }
 
 function change_to_site(){
-    window.location.replace('../Frontend/index.html')
+    window.location.replace('../index.html')
 }
 
 function show_message(text){
