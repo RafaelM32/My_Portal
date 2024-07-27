@@ -36,4 +36,4 @@ function show_message(text){
 
 
 login_button.addEventListener('click', send_credencials)
-msm.addEventListener('keypress',(e)=>{if(e == 'Enter'){send_credencials(); console.log("A tecla foi apertada")}})
+login_button.addEventListener('keypress',(e)=>{if(e.key == 'Enter'){send_credencials(); console.log("A tecla foi apertada")}})
