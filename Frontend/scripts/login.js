@@ -1,5 +1,6 @@
 const site_url = "https://my-portal-git-login-rafaelm32s-projects.vercel.app"
 const login_button = document.getElementById('login_button')
+const msm = document.getElementById('message')
 function get_username(){
     const username = document.getElementById('username').value
     return username
@@ -29,9 +30,8 @@ function change_to_site(){
     window.location.replace('../Frontend/index.html')
 }
 
-function show_message(msm){
-    let msm = document.getElementById("message")
-    msm.innerHTML = msm
+function show_message(text){
+    msm.innerHTML = text
 }
 
 
