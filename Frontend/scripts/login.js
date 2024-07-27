@@ -1,6 +1,5 @@
 const site_url = "https://my-portal-git-login-rafaelm32s-projects.vercel.app"
 const login_button = document.getElementById('login_button')
-
 function get_username(){
     const username = document.getElementById('username').value
     return username
@@ -21,13 +20,18 @@ function send_credencials(){
         credential:'include',   
         data: JSON.stringify({'username': get_username(), 'password': get_password()}),
         contentType: "application/json",
-        success: function(data){if(data['valid_login']){}else{console.log(data['status'])}},
+        success: function(data){if(data['valid_login']){}else{show_message(data['status'])}},
         dataType: "json"
     })
 }
 
 function change_to_site(){
     window.location.replace('../Frontend/index.html')
+}
+
+function show_message(msm){
+    const msm = document.getElementById("message")
+    msm.innerHTML = msm
 }
 
 
