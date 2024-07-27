@@ -252,11 +252,21 @@ function load_channels(){
     $.ajax({
         type:'GET',
         url: `${url_}/channel_list`,
-        success: function(data){load_videos_pear_channel(data['chanels_list'].reverse()); update_qtd(data['qtd']); console.log(data)}
+        success: function(data){if(data['ok']){
+            load_videos_pear_channel(data['chanels_list'].reverse());
+            update_qtd(data['qtd']);
+        }else{
+            change_to_site()
+        }
+    }
 
     })
     
     
+}
+
+function change_to_site(){
+    window.location.replace('../login.html')
 }
 
 function load_videos_in_channel(channel){
