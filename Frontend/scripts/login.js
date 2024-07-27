@@ -21,7 +21,7 @@ function send_credencials(){
         credential:'include',   
         data: JSON.stringify({'username': get_username(), 'password': get_password()}),
         contentType: "application/json",
-        success: function(data){if(data['valid_login']){}else{show_message(data['status'])}},
+        success: function(data){if(data['valid_login']){change_to_site()}else{show_message(data['status'])}},
         dataType: "json"
     })
 }
