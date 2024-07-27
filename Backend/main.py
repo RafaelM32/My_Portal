@@ -54,7 +54,10 @@ def channel_list():
 
     elif request.method == 'GET':
         cookie = request.cookies.get('session_token')
-        resposta = {'ok': True, 'chanels_list': load_channels_list_in_database(), 'qtd': load_video_list()['videos_qtd'], 'cookie': cookie}
+        if cookie != None:
+            resposta = {'ok': True, 'chanels_list': load_channels_list_in_database(), 'qtd': load_video_list()['videos_qtd'], 'cookie': cookie}
+        else:
+            resposta = {'ok': False, 'chanels_list': load_channels_list_in_database(), 'qtd': load_video_list()['videos_qtd'], 'cookie': cookie}
         return make_response(json.jsonify(resposta))
 
 @app.route('/videos', methods=['POST'])
