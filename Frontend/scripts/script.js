@@ -259,7 +259,7 @@ function load_channels(){
             load_videos_pear_channel(data['chanels_list'].reverse());
             update_qtd(data['qtd']);
         }else{
-            console.log(data)
+            change_to_site()
         }
     }
 
