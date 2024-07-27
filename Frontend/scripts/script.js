@@ -252,7 +252,7 @@ function load_channels(){
     $.ajax({
         type:'GET',
         url: `${url_}/channel_list`,
-        success: function(data){load_videos_pear_channel(data['chanels_list'].reverse()); update_qtd(data['qtd'])}
+        success: function(data){load_videos_pear_channel(data['chanels_list'].reverse()); update_qtd(data['qtd']); console.log(data)}
 
     })
     
