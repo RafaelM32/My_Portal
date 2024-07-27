@@ -30,7 +30,7 @@ function change_to_site(){
 }
 
 function show_message(msm){
-    const msm = document.getElementById("message")
+    let msm = document.getElementById("message")
     msm.innerHTML = msm
 }
 
