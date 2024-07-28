@@ -83,7 +83,7 @@ def login():
     is_saved, userID = is_user_saved(requisicao['username'],requisicao['password'])
     if is_saved:
         token_session = generate_token_session(requisicao['username'],ip_requisicao)
-        if not is_valid_token(token_session, ip_requisicao, requisicao['username']):
+        if not is_valid_token(token_session, ip_requisicao):
             save_token_session(token_session, userID)
         resposta = make_response(json.jsonify({'valid_login': True}))
         resposta.set_cookie('session_token', value = token_session, samesite='None',httponly=True,secure=True)
