@@ -10,7 +10,7 @@ var gr_than_button = document.getElementById('more_video')
 var start_qtd_value = 0
 var videos_tumbs_dic = {'videos':[], 'tumbs': [], 'tittles': []}
 var first_attempt = true
-var url_ = "https://my-portal-git-main-rafaelm32s-projects.vercel.app/"
+var url_ = "https://my-portal-git-main-rafaelm32s-projects.vercel.app"
 //Use to load the data from api with videos contents
 //when the calls succeeds, it calls the fuction that places the iframes inside the div content
 function load_content(rfr=false, quantidade = parseInt(h1_video_qtd.innerText), change_qtd = false){    
