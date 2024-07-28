@@ -55,7 +55,10 @@ def channel_list():
     elif request.method == 'GET':
         cookie = request.cookies.get('session_token')
         if cookie != None:
-            resposta = {'ok': True, 'chanels_list': load_channels_list_in_database(), 'qtd': load_video_list()['videos_qtd'], 'cookie': cookie}
+            if is_valid_token(cookie):
+                resposta = {'ok': True, 'chanels_list': load_channels_list_in_database(), 'qtd': load_video_list()['videos_qtd'], 'cookie': cookie}
+            else:
+                resposta = {'ok': False}
         else:
             resposta = {'ok': False}
         return make_response(json.jsonify(resposta))

@@ -132,6 +132,10 @@ def load_usersID():
         usersID.append(user['userID'])
     return usersID
 
+def load_users():
+    result = users_data.find({})
+    return result
+
 def is_user_saved(username,password):
     usersID = load_usersID()
     for userID in usersID:

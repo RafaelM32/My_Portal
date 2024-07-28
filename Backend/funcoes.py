@@ -96,15 +96,18 @@ def generate_token_session(username, sessionIP):
 def decode_token_session(token):
     return jwt.decode(token,os.environ['SECRET_KEY'], algorithms="HS256")
 
-def is_valid_token(token, sessionIP, username):
-    decoded = decode_token_session(token)
-    if decoded['sessionIP'] == sessionIP and decoded['username'] == username:
-        for userID in load_usersID():
-            for tok in load_tokens_session(userID):
-                if tok == token:
-                    return True
-            return False
+def is_valid_token(token, sessionIP):
+    try:
+        decoded = decode_token_session(token)
+    except:
+        return False
+    
+    if decoded['sessionIP'] == sessionIP:
+        for user in load_users():
+            if token in user['session_tokens']:
+                return True
+            else:
+                return False
     else:
-        print('is not the same ip')
         return False
 
