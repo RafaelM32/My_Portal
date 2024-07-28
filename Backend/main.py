@@ -54,8 +54,9 @@ def channel_list():
 
     elif request.method == 'GET':
         cookie = request.cookies.get('session_token')
+        ip_requisicao = request.remote_addr
         if cookie != None:
-            if is_valid_token(cookie):
+            if is_valid_token(cookie, ip_requisicao):
                 resposta = {'ok': True, 'chanels_list': load_channels_list_in_database(), 'qtd': load_video_list()['videos_qtd'], 'cookie': cookie}
             else:
                 resposta = {'ok': False}
