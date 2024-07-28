@@ -258,7 +258,6 @@ function load_channels(){
         success: function(data){if(data['ok']){
             load_videos_pear_channel(data['chanels_list'].reverse());
             update_qtd(data['qtd']);
-            console.log(data);
         }else{
             change_to_site()
         }
