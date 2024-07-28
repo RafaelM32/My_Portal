@@ -1,4 +1,4 @@
-const site_url = "https://my-portal-git-login-rafaelm32s-projects.vercel.app"
+const site_url = "https://my-portal-git-main-rafaelm32s-projects.vercel.app/"
 const login_button = document.getElementById('login_button')
 const msm = document.getElementById('message')
 function get_username(){
